@@ -21,6 +21,21 @@ const CATEGORIES = [
   'Fact Check',
 ]
 
+function AdBanner({ slot = '1234567890', className = '' }) {
+  return (
+    <div className={`flex items-center justify-center bg-gray-50 py-4 ${className}`}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot={slot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
+  )
+}
+
 export default function Home({ posts }) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE)
@@ -52,7 +67,7 @@ export default function Home({ posts }) {
   return (
     <>
       {/* Category Filter Bar */}
-      <div className="mb-10 overflow-x-auto border-b border-gray-200 dark:border-gray-700">
+      <div className="mb-10 overflow-x-auto border-b border-gray-200">
         <div className="flex gap-1 pb-3">
           {CATEGORIES.map((cat) => {
             const count =
@@ -66,9 +81,10 @@ export default function Home({ posts }) {
                 onClick={() => setActiveCategory(cat)}
                 className={`whitespace-nowrap px-3 py-1 text-xs font-medium tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'border-b-2 border-black text-black dark:border-white dark:text-white'
-                    : 'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300'
+                    ? 'border-b-2 text-black'
+                    : 'text-gray-400 hover:text-gray-700'
                 }`}
+                style={activeCategory === cat ? { borderColor: '#5E61DE' } : {}}
               >
                 {cat}
               </button>
@@ -77,58 +93,51 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-      {/* Wired-style Masonry Grid */}
+      {/* Masonry Grid */}
       <div className="columns-1 gap-8 sm:columns-2 lg:columns-3 xl:columns-4">
-        {visiblePosts.map((post) => {
+        {visiblePosts.map((post, index) => {
           const { slug, date, title, summary, tags, images } = post
           const heroImage = images?.[0] || null
           const primaryTag = tags?.[0] || 'Research'
 
           return (
-            <article key={slug} className="mb-10 break-inside-avoid">
-              {/* Image */}
-              {heroImage && (
-                <Link href={`/blog/${slug}`} className="mb-3 block">
-                  <img
-                    src={heroImage}
-                    alt={title}
-                    className="w-full object-cover"
-                    loading="lazy"
-                  />
-                </Link>
+            <div key={slug}>
+              {/* Ad banner after every 5 articles */}
+              {index > 0 && index % 5 === 0 && (
+                <div className="mb-10 break-inside-avoid">
+                  <AdBanner slot={`grid-${index}`} />
+                </div>
               )}
-
-              {/* Category Label */}
-              <p className="mb-2 text-[11px] font-medium tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400">
-                {primaryTag}
-              </p>
-
-              {/* Headline */}
-              <h2 className="mb-2 font-serif text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-gray-100 lg:text-2xl">
-                <Link href={`/blog/${slug}`} className="hover:underline">
-                  {title}
-                </Link>
-              </h2>
-
-              {/* Summary */}
-              <p className="mb-3 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
-                {summary?.slice(0, 160)}
-                {summary && summary.length > 160 ? '...' : ''}
-              </p>
-
-              {/* Date */}
-              <p className="text-[10px] font-medium tracking-[0.15em] uppercase text-gray-400 dark:text-gray-500">
-                {formatDate(date, siteMetadata.locale)}
-              </p>
-            </article>
+              <article className="mb-10 break-inside-avoid">
+                {heroImage && (
+                  <Link href={`/blog/${slug}`} className="mb-3 block">
+                    <img src={heroImage} alt={title} className="w-full object-cover" loading="lazy" />
+                  </Link>
+                )}
+                <p className="mb-2 text-[11px] font-medium tracking-[0.2em] uppercase" style={{ color: '#5E61DE' }}>
+                  {primaryTag}
+                </p>
+                <h2 className="mb-2 font-serif text-xl font-black leading-tight tracking-tight text-gray-900 lg:text-2xl">
+                  <Link href={`/blog/${slug}`} className="hover:underline" style={{ textDecorationColor: '#5E61DE' }}>
+                    {title}
+                  </Link>
+                </h2>
+                <p className="mb-3 text-[15px] leading-relaxed text-gray-600">
+                  {summary?.slice(0, 160)}
+                  {summary && summary.length > 160 ? '...' : ''}
+                </p>
+                <p className="text-[10px] font-medium tracking-[0.15em] uppercase text-gray-400">
+                  {formatDate(date, siteMetadata.locale)}
+                </p>
+              </article>
+            </div>
           )
         })}
       </div>
 
-      {/* Loading */}
       {hasMore && (
         <div className="mt-12 flex justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900 dark:border-gray-600 dark:border-t-gray-100" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300" style={{ borderTopColor: '#5E61DE' }} />
         </div>
       )}
 
