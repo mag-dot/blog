@@ -23,7 +23,7 @@ const CATEGORIES = [
 
 function AdBanner({ slot = '1234567890', className = '' }) {
   return (
-    <div className={`flex items-center justify-center bg-gray-50 py-4 ${className}`}>
+    <div className={`flex items-center justify-center bg-gray-50 py-6 ${className}`}>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
@@ -66,9 +66,9 @@ export default function Home({ posts }) {
 
   return (
     <>
-      {/* Category Filter Bar */}
-      <div className="mb-10 overflow-x-auto border-b border-gray-200">
-        <div className="flex gap-1 pb-3">
+      {/* Category Filter */}
+      <div className="mb-12 border-b border-gray-100">
+        <div className="flex gap-6 pb-3 overflow-x-auto">
           {CATEGORIES.map((cat) => {
             const count =
               cat === 'All'
@@ -77,14 +77,13 @@ export default function Home({ posts }) {
             if (count === 0 && cat !== 'All') return null
             return (
               <button
-                key={cat}
+                key=***
                 onClick={() => setActiveCategory(cat)}
-                className={`whitespace-nowrap px-3 py-1 text-xs font-medium tracking-widest uppercase transition-colors ${
+                className={`whitespace-nowrap pb-2 text-[13px] font-medium tracking-tight transition-colors ${
                   activeCategory === cat
-                    ? 'border-b-2 text-black'
-                    : 'text-gray-400 hover:text-gray-700'
+                    ? 'border-b-2 border-gray-900 text-gray-900'
+                    : 'text-gray-400 hover:text-gray-600'
                 }`}
-                style={activeCategory === cat ? { borderColor: '#5E61DE' } : {}}
               >
                 {cat}
               </button>
@@ -93,8 +92,8 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-      {/* Masonry Grid */}
-      <div className="columns-1 gap-8 sm:columns-2 lg:columns-3 xl:columns-4">
+      {/* Grid */}
+      <div className="columns-1 gap-10 sm:columns-2 lg:columns-3 xl:columns-4">
         {visiblePosts.map((post, index) => {
           const { slug, date, title, summary, tags, images } = post
           const heroImage = images?.[0] || null
@@ -102,31 +101,30 @@ export default function Home({ posts }) {
 
           return (
             <div key={slug}>
-              {/* Ad banner after every 5 articles */}
               {index > 0 && index % 5 === 0 && (
-                <div className="mb-10 break-inside-avoid">
+                <div className="mb-12 break-inside-avoid">
                   <AdBanner slot={`grid-${index}`} />
                 </div>
               )}
-              <article className="mb-10 break-inside-avoid">
+              <article className="mb-12 break-inside-avoid">
                 {heroImage && (
-                  <Link href={`/blog/${slug}`} className="mb-3 block">
+                  <Link href={`/blog/${slug}`} className="mb-4 block">
                     <img src={heroImage} alt={title} className="w-full object-cover" loading="lazy" />
                   </Link>
                 )}
-                <p className="mb-2 text-[11px] font-medium tracking-[0.2em] uppercase" style={{ color: '#5E61DE' }}>
+                <p className="mb-2 text-[11px] font-medium tracking-wide uppercase text-gray-400">
                   {primaryTag}
                 </p>
-                <h2 className="mb-2 font-serif text-xl font-black leading-tight tracking-tight text-gray-900 lg:text-2xl">
-                  <Link href={`/blog/${slug}`} className="hover:underline" style={{ textDecorationColor: '#5E61DE' }}>
+                <h2 className="mb-2 text-[18px] font-semibold leading-snug tracking-tight text-gray-900 lg:text-[20px]">
+                  <Link href={`/blog/${slug}`} className="hover:text-gray-600 transition-colors">
                     {title}
                   </Link>
                 </h2>
-                <p className="mb-3 text-[15px] leading-relaxed text-gray-600">
-                  {summary?.slice(0, 160)}
-                  {summary && summary.length > 160 ? '...' : ''}
+                <p className="mb-3 text-[14px] leading-relaxed text-gray-500">
+                  {summary?.slice(0, 140)}
+                  {summary && summary.length > 140 ? '…' : ''}
                 </p>
-                <p className="text-[10px] font-medium tracking-[0.15em] uppercase text-gray-400">
+                <p className="text-[11px] font-medium text-gray-300">
                   {formatDate(date, siteMetadata.locale)}
                 </p>
               </article>
@@ -136,19 +134,19 @@ export default function Home({ posts }) {
       </div>
 
       {hasMore && (
-        <div className="mt-12 flex justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300" style={{ borderTopColor: '#5E61DE' }} />
+        <div className="mt-16 flex justify-center">
+          <div className="h-5 w-5 animate-spin rounded-full border-[1.5px] border-gray-200 border-t-gray-900" />
         </div>
       )}
 
       {!hasMore && filteredPosts.length > POSTS_PER_PAGE && (
-        <p className="mt-12 text-center text-xs tracking-widest uppercase text-gray-400">
-          All {filteredPosts.length} articles
+        <p className="mt-16 text-center text-[11px] font-medium text-gray-300">
+          {filteredPosts.length} articles
         </p>
       )}
 
       {filteredPosts.length === 0 && (
-        <p className="py-20 text-center text-gray-400">No articles in this category.</p>
+        <p className="py-24 text-center text-gray-400">No articles in this category.</p>
       )}
     </>
   )

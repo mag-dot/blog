@@ -3,7 +3,6 @@ import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
@@ -23,46 +22,46 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
   return (
     <SectionContainer>
       <ScrollTopAndComment />
-      <article className="mx-auto max-w-3xl">
-        <header className="pt-8 pb-6">
-          <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase" style={{ color: '#5E61DE' }}>
+      <article className="mx-auto max-w-2xl">
+        <header className="pt-10 pb-8">
+          <p className="mb-3 text-[11px] font-medium tracking-wide uppercase text-gray-400">
             {primaryTag}
           </p>
-          <PageTitle>{title}</PageTitle>
-          <p className="mt-4 text-sm text-gray-400">
+          <h1 className="text-[32px] font-semibold leading-[1.15] text-gray-900 lg:text-[40px]" style={{ letterSpacing: '-0.04em' }}>
+            {title}
+          </h1>
+          <p className="mt-4 text-[13px] text-gray-400">
             <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
           </p>
         </header>
 
         {heroImage && (
-          <div className="mb-8">
-            <img src={heroImage} alt={title} className="w-full rounded-sm object-cover" />
+          <div className="mb-10">
+            <img src={heroImage} alt={title} className="w-full object-cover" />
           </div>
         )}
 
-        <div className="my-8 flex items-center justify-center bg-gray-50 py-4">
+        <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
-        <div className="prose max-w-none pb-8 text-gray-700">{children}</div>
+        <div className="prose prose-gray max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">{children}</div>
 
-        <div className="my-8 flex items-center justify-center bg-gray-50 py-4">
+        <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
         {next && next.path && (
-          <div className="border-t border-gray-200 pt-10 pb-10">
-            <p className="mb-2 text-xs font-medium tracking-widest uppercase text-gray-400">Keep Reading</p>
-            <h3 className="font-serif text-2xl font-bold text-gray-900">
-              <Link href={`/${next.path}`} className="hover:underline" style={{ textDecorationColor: '#5E61DE' }}>
-                {next.title}
-              </Link>
+          <div className="border-t border-gray-100 pt-10 pb-10">
+            <p className="mb-2 text-[11px] font-medium tracking-wide uppercase text-gray-300">Next</p>
+            <h3 className="text-[20px] font-semibold text-gray-900" style={{ letterSpacing: '-0.03em' }}>
+              <Link href={`/${next.path}`} className="hover:text-gray-600 transition-colors">{next.title}</Link>
             </h3>
           </div>
         )}
 
-        <div className="pb-8">
-          <Link href="/" className="text-sm font-medium" style={{ color: '#5E61DE' }}>
+        <div className="pb-10">
+          <Link href="/" className="text-[13px] font-medium text-gray-400 hover:text-gray-600 transition-colors">
             &larr; All articles
           </Link>
         </div>

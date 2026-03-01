@@ -6,7 +6,7 @@ interface Props {
 
 export default function PageTitle({ children }: Props) {
   return (
-    <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 dark:text-gray-100">
+    <h1 className="text-[32px] font-semibold leading-[1.15] text-gray-900 lg:text-[40px]" style={{ letterSpacing: '-0.04em' }}>
       {children}
     </h1>
   )
