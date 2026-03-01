@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 
@@ -34,13 +33,9 @@ export default function Home({ posts }) {
   const visiblePosts = filteredPosts.slice(0, visibleCount)
   const hasMore = visibleCount < filteredPosts.length
 
-  // Infinite scroll
   const handleScroll = useCallback(() => {
     if (!hasMore) return
-    const scrollY = window.scrollY
-    const windowH = window.innerHeight
-    const docH = document.documentElement.scrollHeight
-    if (scrollY + windowH >= docH - 400) {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 400) {
       setVisibleCount((prev) => prev + LOAD_MORE)
     }
   }, [hasMore])
@@ -50,7 +45,6 @@ export default function Home({ posts }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  // Reset visible count when category changes
   useEffect(() => {
     setVisibleCount(POSTS_PER_PAGE)
   }, [activeCategory])
@@ -58,8 +52,8 @@ export default function Home({ posts }) {
   return (
     <>
       {/* Category Filter Bar */}
-      <div className="mb-8 overflow-x-auto border-b border-gray-200 dark:border-gray-700">
-        <div className="flex gap-1 pb-2">
+      <div className="mb-10 overflow-x-auto border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-1 pb-3">
           {CATEGORIES.map((cat) => {
             const count =
               cat === 'All'
@@ -70,106 +64,82 @@ export default function Home({ posts }) {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap px-3 py-1 text-xs font-medium tracking-widest uppercase transition-colors ${
                   activeCategory === cat
-                    ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'border-b-2 border-black text-black dark:border-white dark:text-white'
+                    : 'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300'
                 }`}
               >
                 {cat}
-                <span className="ml-1.5 text-xs opacity-60">{count}</span>
               </button>
             )
           })}
         </div>
       </div>
 
-      {/* Post Count */}
-      <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-        {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
-        {activeCategory !== 'All' && ` in ${activeCategory}`}
-      </p>
-
-      {/* Posts Grid — Wired-inspired */}
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {/* Wired-style Masonry Grid */}
+      <div className="columns-1 gap-8 sm:columns-2 lg:columns-3 xl:columns-4">
         {visiblePosts.map((post) => {
           const { slug, date, title, summary, tags, images } = post
           const heroImage = images?.[0] || null
+          const primaryTag = tags?.[0] || 'Research'
 
           return (
-            <article
-              key={slug}
-              className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-900"
-            >
+            <article key={slug} className="mb-10 break-inside-avoid">
               {/* Image */}
               {heroImage && (
-                <Link href={`/blog/${slug}`} className="block overflow-hidden">
+                <Link href={`/blog/${slug}`} className="mb-3 block">
                   <img
                     src={heroImage}
                     alt={title}
-                    className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full object-cover"
                     loading="lazy"
                   />
                 </Link>
               )}
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-5">
-                {/* Tags */}
-                <div className="mb-2 flex flex-wrap gap-1">
-                  {tags?.slice(0, 2).map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-block rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              {/* Category Label */}
+              <p className="mb-2 text-[11px] font-medium tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400">
+                {primaryTag}
+              </p>
 
-                {/* Title */}
-                <h2 className="mb-2 text-lg font-bold leading-snug tracking-tight">
-                  <Link
-                    href={`/blog/${slug}`}
-                    className="text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
-                  >
-                    {title}
-                  </Link>
-                </h2>
+              {/* Headline */}
+              <h2 className="mb-2 font-serif text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-gray-100 lg:text-2xl">
+                <Link href={`/blog/${slug}`} className="hover:underline">
+                  {title}
+                </Link>
+              </h2>
 
-                {/* Summary */}
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-500 line-clamp-3 dark:text-gray-400">
-                  {summary}
-                </p>
+              {/* Summary */}
+              <p className="mb-3 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">
+                {summary?.slice(0, 160)}
+                {summary && summary.length > 160 ? '...' : ''}
+              </p>
 
-                {/* Date */}
-                <time
-                  dateTime={date}
-                  className="text-xs font-medium tracking-wide text-gray-400 uppercase dark:text-gray-500"
-                >
-                  {formatDate(date, siteMetadata.locale)}
-                </time>
-              </div>
+              {/* Date */}
+              <p className="text-[10px] font-medium tracking-[0.15em] uppercase text-gray-400 dark:text-gray-500">
+                {formatDate(date, siteMetadata.locale)}
+              </p>
             </article>
           )
         })}
       </div>
 
-      {/* Loading indicator */}
+      {/* Loading */}
       {hasMore && (
         <div className="mt-12 flex justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900 dark:border-gray-600 dark:border-t-gray-100" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900 dark:border-gray-600 dark:border-t-gray-100" />
         </div>
       )}
 
       {!hasMore && filteredPosts.length > POSTS_PER_PAGE && (
-        <p className="mt-12 text-center text-sm text-gray-400 dark:text-gray-500">
-          All {filteredPosts.length} articles loaded
+        <p className="mt-12 text-center text-xs tracking-widest uppercase text-gray-400">
+          All {filteredPosts.length} articles
         </p>
       )}
 
       {filteredPosts.length === 0 && (
-        <p className="py-20 text-center text-gray-400">No articles in this category yet.</p>
+        <p className="py-20 text-center text-gray-400">No articles in this category.</p>
       )}
     </>
   )

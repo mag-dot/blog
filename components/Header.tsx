@@ -6,7 +6,8 @@ import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
 
 const Header = () => {
-  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-6'
+  let headerClass =
+    'flex w-full items-center justify-between bg-white py-6 dark:bg-gray-950'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
@@ -14,21 +15,17 @@ const Header = () => {
   return (
     <header className={headerClass}>
       <Link href="/" aria-label={siteMetadata.headerTitle}>
-        <img
-          src="/static/images/logo.svg"
-          alt="Commmonn Ground"
-          className="h-8 dark:invert"
-        />
+        <img src="/static/images/logo.svg" alt="Commmonn Ground" className="h-7 dark:invert" />
       </Link>
-      <div className="flex items-center space-x-4 leading-5 sm:-mr-6 sm:space-x-6">
-        <div className="no-scrollbar hidden max-w-40 items-center gap-x-4 overflow-x-auto sm:flex md:max-w-72 lg:max-w-96">
+      <div className="flex items-center gap-4 sm:gap-6">
+        <div className="hidden items-center gap-5 sm:flex">
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="hover:text-primary-500 dark:hover:text-primary-400 m-1 font-medium text-gray-900 dark:text-gray-100"
+                className="text-xs font-medium tracking-widest uppercase text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white"
               >
                 {link.title}
               </Link>
