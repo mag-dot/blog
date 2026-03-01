@@ -42,13 +42,13 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
         )}
 
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
+          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
         <div className="prose prose-gray max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">{children}</div>
 
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
+          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
         {next && next.path && (

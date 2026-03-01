@@ -27,7 +27,7 @@ function AdBanner({ slot = '1234567890', className = '' }) {
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-client="ca-pub-8178097336205658"
         data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"
