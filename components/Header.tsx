@@ -1,6 +1,5 @@
 import siteMetadata from '@/data/siteMetadata'
 import Link from './Link'
-import SearchButton from './SearchButton'
 
 const Header = () => {
   return (
@@ -8,9 +7,6 @@ const Header = () => {
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <img src="/static/images/logo.svg" alt="Commmonn Ground" className="h-6" />
       </Link>
-      <div className="absolute right-4">
-        <SearchButton />
-      </div>
     </header>
   )
 }

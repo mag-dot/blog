@@ -90,6 +90,18 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
   const post = allBlogs.find((p) => p.slug === slug) as Blog
+  const mainContent = coreContent(post)
+  const primaryTag = mainContent.tags?.[0]
+
+  // Find 5 related posts from the same category
+  const relatedPosts = primaryTag
+    ? sortedCoreContents
+        .filter((p) => p.slug !== slug && p.tags?.includes(primaryTag))
+        .slice(0, 5)
+    : sortedCoreContents
+        .filter((p) => p.slug !== slug)
+        .slice(0, 5)
+
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
     const authorResults = allAuthors.find((p) => p.slug === author)
@@ -112,7 +124,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
+      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev} relatedPosts={relatedPosts}>
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
     </>

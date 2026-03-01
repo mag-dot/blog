@@ -20,7 +20,6 @@ export default function Footer() {
           <p className="text-[11px] text-gray-300">
             &copy; {new Date().getFullYear()} Commmonn Ground
           </p>
-          <p className="text-[11px] text-gray-300">Research</p>
         </div>
       </div>
     </footer>

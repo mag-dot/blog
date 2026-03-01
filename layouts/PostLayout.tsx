@@ -17,10 +17,11 @@ interface LayoutProps {
   authorDetails: CoreContent<Authors>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  relatedPosts?: CoreContent<Blog>[]
   children: ReactNode
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+export default function PostLayout({ content, authorDetails, next, prev, relatedPosts, children }: LayoutProps) {
   const { path, slug, date, title, tags, images } = content
   const basePath = path.split('/')[0]
   const heroImage = images?.[0] || null
@@ -50,30 +51,39 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </div>
         )}
 
-        {/* Ad after hero */}
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
-        <div className="prose prose-gray max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">
+        {/* Demote headings: prose-headings shifts h1→h2, h2→h3 in article body */}
+        <div className="prose prose-gray prose-headings:font-semibold prose-h1:text-[24px] prose-h1:leading-tight prose-h2:text-[20px] prose-h2:leading-snug prose-h3:text-[17px] prose-h4:text-[15px] max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">
           {children}
         </div>
 
-        {/* Ad at end */}
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
-        {next && next.path && (
+        {/* Keep Reading — 5 articles from same category */}
+        {relatedPosts && relatedPosts.length > 0 && (
           <div className="border-t border-gray-100 pt-10 pb-10">
-            <p className="mb-2 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-300">
-              Next
+            <p className="mb-6 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-300">
+              Keep Reading
             </p>
-            <h3 className="text-[20px] font-semibold text-gray-900" style={{ letterSpacing: '-0.03em' }}>
-              <Link href={`/${next.path}`} className="hover:text-gray-600 transition-colors">
-                {next.title}
-              </Link>
-            </h3>
+            <div className="space-y-6">
+              {relatedPosts.map((post) => (
+                <div key={post.slug}>
+                  <h3 className="text-[17px] font-semibold text-gray-900" style={{ letterSpacing: '-0.02em' }}>
+                    <Link href={`/blog/${post.slug}`} className="hover:text-gray-600 transition-colors">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-1 font-mono text-[10px] text-gray-300">
+                    {new Date(post.date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
