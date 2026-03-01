@@ -31,13 +31,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       <ScrollTopAndComment />
       <article className="mx-auto max-w-2xl">
         <header className="pt-10 pb-8">
-          <p className="mb-3 text-[11px] font-medium tracking-wide uppercase text-gray-400">
+          <p className="mb-3 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-400">
             {primaryTag}
           </p>
           <h1 className="text-[32px] font-semibold leading-[1.15] text-gray-900 lg:text-[40px]" style={{ letterSpacing: '-0.04em' }}>
             {title}
           </h1>
-          <p className="mt-4 text-[13px] text-gray-400">
+          <p className="mt-4 font-mono text-[12px] text-gray-400">
             <time dateTime={date}>
               {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
             </time>
@@ -66,7 +66,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
         {next && next.path && (
           <div className="border-t border-gray-100 pt-10 pb-10">
-            <p className="mb-2 text-[11px] font-medium tracking-wide uppercase text-gray-300">
+            <p className="mb-2 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-300">
               Next
             </p>
             <h3 className="text-[20px] font-semibold text-gray-900" style={{ letterSpacing: '-0.03em' }}>

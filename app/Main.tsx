@@ -77,9 +77,9 @@ export default function Home({ posts }) {
             if (count === 0 && cat !== 'All') return null
             return (
               <button
-                key=***
+                key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`whitespace-nowrap pb-2 text-[13px] font-medium tracking-tight transition-colors ${
+                className={`whitespace-nowrap pb-2 font-mono text-[12px] font-medium tracking-tight transition-colors ${
                   activeCategory === cat
                     ? 'border-b-2 border-gray-900 text-gray-900'
                     : 'text-gray-400 hover:text-gray-600'
@@ -112,7 +112,7 @@ export default function Home({ posts }) {
                     <img src={heroImage} alt={title} className="w-full object-cover" loading="lazy" />
                   </Link>
                 )}
-                <p className="mb-2 text-[11px] font-medium tracking-wide uppercase text-gray-400">
+                <p className="mb-2 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-400">
                   {primaryTag}
                 </p>
                 <h2 className="mb-2 text-[18px] font-semibold leading-snug tracking-tight text-gray-900 lg:text-[20px]">
@@ -122,9 +122,9 @@ export default function Home({ posts }) {
                 </h2>
                 <p className="mb-3 text-[14px] leading-relaxed text-gray-500">
                   {summary?.slice(0, 140)}
-                  {summary && summary.length > 140 ? '…' : ''}
+                  {summary && summary.length > 140 ? '\u2026' : ''}
                 </p>
-                <p className="text-[11px] font-medium text-gray-300">
+                <p className="font-mono text-[10px] font-medium text-gray-300">
                   {formatDate(date, siteMetadata.locale)}
                 </p>
               </article>
@@ -140,7 +140,7 @@ export default function Home({ posts }) {
       )}
 
       {!hasMore && filteredPosts.length > POSTS_PER_PAGE && (
-        <p className="mt-16 text-center text-[11px] font-medium text-gray-300">
+        <p className="mt-16 text-center font-mono text-[10px] font-medium text-gray-300">
           {filteredPosts.length} articles
         </p>
       )}
