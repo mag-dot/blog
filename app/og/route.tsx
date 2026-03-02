@@ -19,9 +19,8 @@ export async function GET(req: NextRequest) {
     if (res.ok) geistFont = await res.arrayBuffer()
   } catch {}
 
-  // Truncate and size — allow up to 3 lines
-  const displayTitle = title.length > 120 ? title.substring(0, 117) + '…' : title
-  const fontSize = displayTitle.length > 80 ? 38 : displayTitle.length > 60 ? 44 : displayTitle.length > 40 ? 52 : 60
+  // Fixed 60px, max 3 lines, truncate at ~150 chars
+  const displayTitle = title.length > 150 ? title.substring(0, 147) + '…' : title
 
   return new ImageResponse(
     (
@@ -37,16 +36,16 @@ export async function GET(req: NextRequest) {
           fontFamily: geistFont ? 'Geist' : 'system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Logo — exact SVG from site header, constrained to 180px wide */}
-        <div style={{ display: 'flex' }}>
+        {/* Logo — exact SVG, natural aspect ratio 780:113 */}
+        <div style={{ display: 'flex', height: '30px' }}>
           <img
             src={`data:image/svg+xml;base64,${LOGO_SVG_BASE64}`}
-            width={180}
-            height={26}
+            height={30}
+            width={207}
           />
         </div>
 
-        {/* Title */}
+        {/* Title — fixed 60px, flows to max 3 lines */}
         <div
           style={{
             display: 'flex',
@@ -57,11 +56,13 @@ export async function GET(req: NextRequest) {
         >
           <span
             style={{
-              fontSize: `${fontSize}px`,
+              fontSize: '60px',
               fontWeight: 500,
-              lineHeight: 1.2,
+              lineHeight: 1.15,
               letterSpacing: '-0.03em',
               color: '#18171A',
+              maxWidth: '1040px',
+              overflow: 'hidden',
             }}
           >
             {displayTitle}
