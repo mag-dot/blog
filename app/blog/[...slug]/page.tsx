@@ -49,6 +49,11 @@ export async function generateMetadata(props: {
     }
   })
 
+  // Always add programmatic OG image as primary (consistent branding)
+  const primaryTag = post.tags?.[0] || 'Research'
+  const ogImageUrl = `${siteMetadata.siteUrl}/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(primaryTag)}`
+  const ogImagesWithFallback = [{ url: ogImageUrl, width: 1200, height: 630 }, ...ogImages]
+
   return {
     title: post.title,
     description: post.summary,
@@ -61,14 +66,14 @@ export async function generateMetadata(props: {
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       url: './',
-      images: ogImages,
-      authors: authors.length > 0 ? authors : [siteMetadata.author],
+      images: ogImagesWithFallback,
+      authors: [siteMetadata.author],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: imageList,
+      images: [ogImageUrl],
     },
   }
 }
@@ -108,12 +113,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     return coreContent(authorResults as Authors)
   })
   const jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
-    return {
-      '@type': 'Person',
-      name: author.name,
-    }
-  })
+  jsonLd['author'] = [{ '@type': 'Organization', name: 'Commmonn' }]
 
   const Layout = layouts[post.layout || defaultLayout]
 

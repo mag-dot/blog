@@ -55,8 +55,7 @@ export default function PostLayout({ content, authorDetails, next, prev, related
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
-        {/* Demote headings: prose-headings shifts h1→h2, h2→h3 in article body */}
-        <div className="prose prose-gray prose-headings:font-semibold prose-h1:text-[24px] prose-h1:leading-tight prose-h2:text-[20px] prose-h2:leading-snug prose-h3:text-[17px] prose-h4:text-[15px] max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">
+        <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[24px] prose-h2:leading-tight prose-h3:text-[20px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">
           {children}
         </div>
 
