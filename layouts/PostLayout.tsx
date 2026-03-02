@@ -6,6 +6,7 @@ import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { getArticlePath } from '@/lib/categorySlug'
+import InArticleAd from '@/components/InArticleAd'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -27,7 +28,6 @@ interface LayoutProps {
 
 export default function PostLayout({ content, authorDetails, next, prev, relatedPosts, children }: LayoutProps) {
   const { slug, date, title, tags, images } = content
-  const heroImage = images?.[0] || null
   const primaryTag = tags?.[0] || 'Research'
 
   return (
@@ -50,19 +50,11 @@ export default function PostLayout({ content, authorDetails, next, prev, related
           </p>
         </header>
 
-        {heroImage && (
-          <div className="mb-10">
-            <img src={heroImage} alt={title} className="w-full object-cover" />
-          </div>
-        )}
-
-        <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-top" data-ad-format="auto" data-full-width-responsive="true" />
-        </div>
-
-        <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[24px] prose-h2:leading-tight prose-h3:text-[20px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">
+        <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[22px] prose-h2:leading-tight prose-h3:text-[19px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] sm:prose-h2:text-[24px] sm:prose-h3:text-[20px] max-w-none pb-10 text-[16px] leading-[1.8] text-gray-600 sm:text-[15px]">
           {children}
         </div>
+
+        <InArticleAd />
 
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
           <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
