@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
               lineHeight: 1.15,
               letterSpacing: '-0.03em',
               color: '#18171A',
-              maxWidth: '70%',
+              maxWidth: '85%',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }}
