@@ -5,6 +5,7 @@ import Link from '@/components/Link'
 import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import { getArticlePath } from '@/lib/categorySlug'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -22,8 +23,7 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, relatedPosts, children }: LayoutProps) {
-  const { path, slug, date, title, tags, images } = content
-  const basePath = path.split('/')[0]
+  const { slug, date, title, tags, images } = content
   const heroImage = images?.[0] || null
   const primaryTag = tags?.[0] || 'Research'
 
@@ -75,7 +75,7 @@ export default function PostLayout({ content, authorDetails, next, prev, related
               {relatedPosts.map((post) => (
                 <div key={post.slug}>
                   <h3 className="text-[17px] font-semibold text-gray-900" style={{ letterSpacing: '-0.02em' }}>
-                    <Link href={`/blog/${post.slug}`} className="hover:text-[#5E61DE] transition-colors">
+                    <Link href={getArticlePath(post.tags, post.slug)} className="hover:text-[#5E61DE] transition-colors">
                       {post.title}
                     </Link>
                   </h3>
@@ -89,7 +89,7 @@ export default function PostLayout({ content, authorDetails, next, prev, related
         )}
 
         <div className="pb-10">
-          <Link href={`/${basePath}`} className="text-[13px] font-medium text-gray-400 hover:text-gray-600 transition-colors">
+          <Link href="/" className="text-[13px] font-medium text-gray-400 hover:text-gray-600 transition-colors">
             &larr; All articles
           </Link>
         </div>

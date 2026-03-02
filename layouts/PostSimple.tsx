@@ -6,6 +6,7 @@ import Link from '@/components/Link'
 import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import { getArticlePath } from '@/lib/categorySlug'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -69,7 +70,7 @@ export default function PostLayout({ content, next, prev, relatedPosts, children
               {relatedPosts.map((post) => (
                 <div key={post.slug}>
                   <h3 className="text-[17px] font-semibold text-gray-900" style={{ letterSpacing: '-0.02em' }}>
-                    <Link href={`/blog/${post.slug}`} className="hover:text-[#5E61DE] transition-colors">
+                    <Link href={getArticlePath(post.tags, post.slug)} className="hover:text-[#5E61DE] transition-colors">
                       {post.title}
                     </Link>
                   </h3>

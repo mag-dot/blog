@@ -60,6 +60,26 @@ const computedFields: ComputedFields = {
   toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
 }
 
+const TAG_TO_CATEGORY_SLUG = {
+  'Tech & AI': 'tech-ai',
+  'Crypto & Bitcoin': 'crypto',
+  'E-Commerce': 'e-commerce',
+  'Invest': 'invest',
+  'Child Development': 'child-development',
+  'Food & Health': 'food-health',
+  'Travel': 'travel',
+  'Auto': 'auto',
+  'Fact Check': 'fact-check',
+  'Research': 'research',
+}
+
+function getArticleUrl(doc) {
+  const slug = doc._raw.flattenedPath.replace(/^.+?(\/)/, '')
+  const tag = (doc.tags && doc.tags[0]) || 'Research'
+  const catSlug = TAG_TO_CATEGORY_SLUG[tag] || tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  return `${siteMetadata.siteUrl}/${catSlug}/${slug}`
+}
+
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
@@ -123,7 +143,7 @@ export const Blog = defineDocumentType(() => ({
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+        url: getArticleUrl(doc),
         author: [{ '@type': 'Organization', name: 'Commmonn' }],
       }),
     },

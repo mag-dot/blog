@@ -1,4 +1,5 @@
 const { withContentlayer } = require('next-contentlayer2')
+const blogRedirects = require('./lib/blog-redirects.json')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -96,6 +97,14 @@ module.exports = () => {
           source: '/(.*)',
           headers: securityHeaders,
         },
+      ]
+    },
+    async redirects() {
+      return [
+        // Old /blog/ index → homepage
+        { source: '/blog/', destination: '/', permanent: true },
+        // Per-article /blog/slug → /category/slug
+        ...blogRedirects,
       ]
     },
     webpack: (config, options) => {

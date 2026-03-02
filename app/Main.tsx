@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from '@/components/Link'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
+import { getArticlePath } from '@/lib/categorySlug'
 
 const POSTS_PER_PAGE = 40
 const LOAD_MORE = 20
@@ -108,7 +109,7 @@ export default function Home({ posts }) {
               )}
               <article className="mb-12 break-inside-avoid">
                 {heroImage && (
-                  <Link href={`/blog/${slug}`} className="mb-4 block">
+                  <Link href={getArticlePath(tags, slug)} className="mb-4 block">
                     <img src={heroImage} alt={title} className="w-full object-cover" loading="lazy" />
                   </Link>
                 )}
@@ -118,7 +119,7 @@ export default function Home({ posts }) {
                   </span>
                 </p>
                 <h2 className="mb-2 text-[18px] font-semibold leading-snug tracking-tight text-gray-900 lg:text-[20px]">
-                  <Link href={`/blog/${slug}`} className="hover:text-gray-600 transition-colors">
+                  <Link href={getArticlePath(tags, slug)} className="hover:text-gray-600 transition-colors">
                     {title}
                   </Link>
                 </h2>
