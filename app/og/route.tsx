@@ -37,12 +37,14 @@ export async function GET(req: NextRequest) {
           fontFamily: geistFont ? 'Geist' : 'system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Logo — exact SVG from site header */}
-        <img
-          src={`data:image/svg+xml;base64,${LOGO_SVG_BASE64}`}
-          height={28}
-          style={{ height: '28px', width: 'auto' }}
-        />
+        {/* Logo — exact SVG from site header, constrained to 180px wide */}
+        <div style={{ display: 'flex' }}>
+          <img
+            src={`data:image/svg+xml;base64,${LOGO_SVG_BASE64}`}
+            width={180}
+            height={26}
+          />
+        </div>
 
         {/* Title */}
         <div
@@ -50,22 +52,20 @@ export async function GET(req: NextRequest) {
             display: 'flex',
             flex: 1,
             alignItems: 'center',
-            marginTop: '20px',
+            marginTop: '24px',
           }}
         >
-          <h1
+          <span
             style={{
               fontSize: `${fontSize}px`,
               fontWeight: 500,
               lineHeight: 1.2,
               letterSpacing: '-0.03em',
               color: '#18171A',
-              margin: 0,
-              paddingRight: '40px',
             }}
           >
             {displayTitle}
-          </h1>
+          </span>
         </div>
       </div>
     ),
