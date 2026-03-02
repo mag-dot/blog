@@ -37,17 +37,9 @@ export async function generateMetadata(props: {
 
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
-  let imageList = [siteMetadata.socialBanner]
-  if (post.images) {
-    imageList = typeof post.images === 'string' ? [post.images] : post.images
-  }
-  const ogImages = imageList.map((img) => ({
-    url: img && img.includes('http') ? img : siteMetadata.siteUrl + img,
-  }))
 
   const primaryTag = post.tags?.[0] || 'Research'
   const ogImageUrl = `${siteMetadata.siteUrl}/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(primaryTag)}`
-  const ogImagesWithFallback = [{ url: ogImageUrl, width: 1200, height: 630 }, ...ogImages]
 
   const articlePath = getArticlePath(post.tags, post.slug)
 
@@ -63,7 +55,7 @@ export async function generateMetadata(props: {
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       url: `${siteMetadata.siteUrl}${articlePath}`,
-      images: ogImagesWithFallback,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       authors: [siteMetadata.author],
     },
     twitter: {
