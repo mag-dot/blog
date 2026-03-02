@@ -39,14 +39,7 @@ export async function generateMetadata(props: {
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
 
   const primaryTag = post.tags?.[0] || 'Research'
-  const programmaticOg = `${siteMetadata.siteUrl}/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(primaryTag)}`
-
-  // Prefer the original article image (imported from Wix) if available, otherwise use programmatic OG
-  let ogImageUrl = programmaticOg
-  if (post.images && post.images.length > 0) {
-    const firstImage = typeof post.images === 'string' ? post.images : post.images[0]
-    ogImageUrl = firstImage.includes('http') ? firstImage : `${siteMetadata.siteUrl}${firstImage}`
-  }
+  const ogImageUrl = `${siteMetadata.siteUrl}/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(primaryTag)}`
 
   const articlePath = getArticlePath(post.tags, post.slug)
 
@@ -62,7 +55,7 @@ export async function generateMetadata(props: {
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       url: `${siteMetadata.siteUrl}${articlePath}`,
-      images: [{ url: ogImageUrl }],
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       authors: [siteMetadata.author],
     },
     twitter: {

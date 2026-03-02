@@ -9,7 +9,7 @@ const siteMetadata = {
   siteUrl: 'https://blog-two-phi-88.vercel.app',
   siteRepo: 'https://github.com/mag-dot/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.svg`,
-  socialBanner: `/og?title=${encodeURIComponent('Commmonn Ground')}&category=${encodeURIComponent('AI-powered research exploring Technology, Crypto, E-Commerce, Investing, and more.')}`,
+  socialBanner: '/static/images/og-default.jpg',
   email: 'magshumc@gmail.com',
   github: '',
   x: '',
