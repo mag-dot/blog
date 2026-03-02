@@ -36,16 +36,16 @@ export async function GET(req: NextRequest) {
           fontFamily: geistFont ? 'Geist' : 'system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Logo — exact SVG, natural aspect ratio 780:113 */}
-        <div style={{ display: 'flex', height: '30px' }}>
+        {/* Logo — exact SVG, 360x52 */}
+        <div style={{ display: 'flex' }}>
           <img
             src={`data:image/svg+xml;base64,${LOGO_SVG_BASE64}`}
-            height={30}
-            width={207}
+            width={360}
+            height={52}
           />
         </div>
 
-        {/* Title — fixed 60px, flows to max 3 lines */}
+        {/* Title — Geist 500, 60px, 70% width, max 3 lines, ellipsis if too long */}
         <div
           style={{
             display: 'flex',
@@ -61,8 +61,9 @@ export async function GET(req: NextRequest) {
               lineHeight: 1.15,
               letterSpacing: '-0.03em',
               color: '#18171A',
-              maxWidth: '1040px',
+              maxWidth: '70%',
               overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
             {displayTitle}
