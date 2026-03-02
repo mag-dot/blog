@@ -128,7 +128,7 @@ export default function Home({ posts }) {
                   {summary && summary.length > 140 ? '\u2026' : ''}
                 </p>
                 <p className="font-mono text-[10px] font-medium text-gray-300">
-                  {formatDate(date, siteMetadata.locale)}
+                  {new Date(date).toLocaleDateString(siteMetadata.locale, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })}
                 </p>
               </article>
             </div>
