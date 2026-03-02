@@ -6,11 +6,10 @@ export const runtime = 'edge'
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const title = searchParams.get('title') || 'Commmonn Ground'
-  const category = searchParams.get('category') || 'Research'
 
   // Truncate title if too long
-  const displayTitle = title.length > 90 ? title.substring(0, 87) + '…' : title
-  const fontSize = displayTitle.length > 60 ? 44 : displayTitle.length > 40 ? 52 : 60
+  const displayTitle = title.length > 100 ? title.substring(0, 97) + '…' : title
+  const fontSize = displayTitle.length > 70 ? 40 : displayTitle.length > 50 ? 48 : displayTitle.length > 30 ? 56 : 64
 
   return new ImageResponse(
     (
@@ -20,35 +19,55 @@ export async function GET(req: NextRequest) {
           height: '630px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           backgroundColor: '#ffffff',
           padding: '80px',
           fontFamily: 'system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Top: category label */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span
+        {/* Logo — matching site header */}
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '48px' }}>
+          {/* Purple block */}
+          <div
             style={{
-              fontSize: '14px',
-              fontWeight: 400,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: '#9ca3af',
-              fontFamily: 'monospace',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#A3A5F1',
+              borderRadius: '4px',
+              padding: '6px 14px',
+              marginRight: '10px',
             }}
           >
-            {category}
+            <span
+              style={{
+                fontSize: '22px',
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+              }}
+            >
+              COMM
+            </span>
+          </div>
+          <span
+            style={{
+              fontSize: '22px',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              color: '#18171A',
+            }}
+          >
+            MONN
           </span>
         </div>
 
-        {/* Middle: title */}
+        {/* Title */}
         <div
           style={{
             display: 'flex',
             flex: 1,
             alignItems: 'center',
-            paddingRight: '40px',
           }}
         >
           <h1
@@ -59,36 +78,11 @@ export async function GET(req: NextRequest) {
               letterSpacing: '-0.04em',
               color: '#111827',
               margin: 0,
+              paddingRight: '40px',
             }}
           >
             {displayTitle}
           </h1>
-        </div>
-
-        {/* Bottom: logo + divider */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderTop: '1px solid #e5e7eb',
-            paddingTop: '24px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '-0.02em', color: '#111827' }}>
-              comm
-            </span>
-            <span style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '-0.02em', color: '#A3A5F1' }}>
-              m
-            </span>
-            <span style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '-0.02em', color: '#111827' }}>
-              onn
-            </span>
-          </div>
-          <span style={{ fontSize: '12px', color: '#9ca3af', fontFamily: 'monospace' }}>
-            blog-two-phi-88.vercel.app
-          </span>
         </div>
       </div>
     ),
