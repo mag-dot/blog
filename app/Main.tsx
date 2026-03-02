@@ -112,8 +112,10 @@ export default function Home({ posts }) {
                     <img src={heroImage} alt={title} className="w-full object-cover" loading="lazy" />
                   </Link>
                 )}
-                <p className="mb-2 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-400">
-                  {primaryTag}
+                <p className="mb-2">
+                  <span className="inline-block border border-[#A3A5F1] px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-[#5E61DE]">
+                    {primaryTag}
+                  </span>
                 </p>
                 <h2 className="mb-2 text-[18px] font-semibold leading-snug tracking-tight text-gray-900 lg:text-[20px]">
                   <Link href={`/blog/${slug}`} className="hover:text-gray-600 transition-colors">

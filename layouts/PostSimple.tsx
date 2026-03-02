@@ -31,8 +31,10 @@ export default function PostLayout({ content, next, prev, relatedPosts, children
       <ScrollTopAndComment />
       <article className="mx-auto max-w-2xl">
         <header className="pt-10 pb-8">
-          <p className="mb-3 font-mono text-[10px] font-medium tracking-wide uppercase text-gray-400">
-            {primaryTag}
+          <p className="mb-3">
+            <span className="inline-block border border-[#A3A5F1] px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-[#5E61DE]">
+              {primaryTag}
+            </span>
           </p>
           <h1 className="text-[32px] font-semibold leading-[1.15] text-gray-900 lg:text-[40px]" style={{ letterSpacing: '-0.04em' }}>
             {title}
@@ -67,7 +69,7 @@ export default function PostLayout({ content, next, prev, relatedPosts, children
               {relatedPosts.map((post) => (
                 <div key={post.slug}>
                   <h3 className="text-[17px] font-semibold text-gray-900" style={{ letterSpacing: '-0.02em' }}>
-                    <Link href={`/blog/${post.slug}`} className="hover:text-gray-600 transition-colors">
+                    <Link href={`/blog/${post.slug}`} className="hover:text-[#5E61DE] transition-colors">
                       {post.title}
                     </Link>
                   </h3>

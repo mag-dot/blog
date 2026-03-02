@@ -82,9 +82,14 @@
 @layer utilities {
   .prose {
     & a {
-      color: var(--color-primary-500);
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: #5E61DE;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 2px;
+      transition: text-decoration-thickness 0.15s ease;
       &:hover {
-        color: var(--color-primary-600);
+        text-decoration-thickness: 4px;
       }
       & code {
         color: var(--color-primary-400);
