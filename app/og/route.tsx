@@ -25,36 +25,23 @@ export async function GET(req: NextRequest) {
           fontFamily: 'system-ui, -apple-system, sans-serif',
         }}
       >
-        {/* Logo — matching site header */}
+        {/* Logo — COMMMONN with COMM in purple, MONN in black */}
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '48px' }}>
-          {/* Purple block */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#A3A5F1',
-              borderRadius: '4px',
-              padding: '6px 14px',
-              marginRight: '10px',
-            }}
-          >
-            <span
-              style={{
-                fontSize: '22px',
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                color: '#ffffff',
-              }}
-            >
-              COMM
-            </span>
-          </div>
           <span
             style={{
-              fontSize: '22px',
-              fontWeight: 700,
-              letterSpacing: '-0.02em',
+              fontSize: '28px',
+              fontWeight: 800,
+              letterSpacing: '-0.01em',
+              color: '#A3A5F1',
+            }}
+          >
+            COMM
+          </span>
+          <span
+            style={{
+              fontSize: '28px',
+              fontWeight: 800,
+              letterSpacing: '-0.01em',
               color: '#18171A',
             }}
           >
