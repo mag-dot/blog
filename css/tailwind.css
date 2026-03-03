@@ -164,6 +164,33 @@ input:-webkit-autofill:focus {
   overflow: auto hidden;
 }
 
+/* Media breakout — extend 64px beyond prose container on each side */
+.media-breakout,
+.prose > img,
+.prose > p > img,
+.prose > video,
+.prose > .media-breakout {
+  margin-left: -64px;
+  margin-right: -64px;
+  max-width: calc(100% + 128px);
+  width: calc(100% + 128px);
+  border-radius: 8px;
+}
+
+/* On small screens, keep flush (no breakout) */
+@media (max-width: 767px) {
+  .media-breakout,
+  .prose > img,
+  .prose > p > img,
+  .prose > video,
+  .prose > .media-breakout {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 .content-header-link {
   opacity: 0;
   margin-left: -24px;
