@@ -50,7 +50,7 @@ export default function PostLayout({ content, authorDetails, next, prev, related
           </p>
         </header>
 
-        <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[22px] prose-h2:leading-tight prose-h3:text-[19px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] sm:prose-h2:text-[24px] sm:prose-h3:text-[20px] max-w-none pb-10 text-[16px] leading-[1.8] text-gray-600 sm:text-[15px]">
+        <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[22px] prose-h2:leading-tight prose-h3:text-[19px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] sm:prose-h2:text-[27px] sm:prose-h3:text-[21px] max-w-none pb-10 text-[16px] leading-[1.8] text-gray-600 sm:text-[15px]">
           {children}
         </div>
 
