@@ -14,7 +14,7 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self' fonts.gstatic.com;
-  frame-src giscus.app googleads.g.doubleclick.net
+  frame-src giscus.app googleads.g.doubleclick.net www.youtube.com youtube.com
 `
 
 const securityHeaders = [
