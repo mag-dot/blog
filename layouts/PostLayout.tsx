@@ -7,6 +7,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { getArticlePath } from '@/lib/categorySlug'
 import InArticleAd from '@/components/InArticleAd'
+import MultiplexAd from '@/components/MultiplexAd'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -55,6 +56,8 @@ export default function PostLayout({ content, authorDetails, next, prev, related
         </div>
 
         <InArticleAd />
+
+        <MultiplexAd />
 
         {/* Keep Reading — 5 articles from same category */}
         {relatedPosts && relatedPosts.length > 0 && (

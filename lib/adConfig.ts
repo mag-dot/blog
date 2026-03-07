@@ -16,4 +16,7 @@ export const AD_SLOTS = {
 
   /** Appears in the homepage grid every 5 posts */
   homepageGrid: '3358922390',
+
+  /** Multiplex ad — grid of recommended content-style ads at end of article */
+  articleMultiplex: '3702483420',
 } as const

@@ -8,6 +8,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { getArticlePath } from '@/lib/categorySlug'
 import InArticleAd from '@/components/InArticleAd'
+import MultiplexAd from '@/components/MultiplexAd'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -60,6 +61,8 @@ export default function PostLayout({ content, next, prev, relatedPosts, children
         <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[27px] prose-h2:leading-tight prose-h3:text-[21px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] max-w-none pb-10 text-[15px] leading-[1.8] text-gray-600">{children}</div>
 
         <InArticleAd />
+
+        <MultiplexAd />
 
         {relatedPosts && relatedPosts.length > 0 && (
           <div className="border-t border-gray-100 pt-10 pb-10">
