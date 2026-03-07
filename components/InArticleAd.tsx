@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { AD_CLIENT, AD_SLOTS } from '@/lib/adConfig'
 
 export default function InArticleAd() {
   const adRef = useRef<HTMLDivElement>(null)
@@ -30,8 +31,8 @@ export default function InArticleAd() {
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-8178097336205658"
-        data-ad-slot="article-top"
+        data-ad-client={AD_CLIENT}
+        data-ad-slot={AD_SLOTS.articleTop}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />

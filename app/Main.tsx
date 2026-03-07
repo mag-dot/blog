@@ -5,6 +5,7 @@ import Link from '@/components/Link'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import { getArticlePath } from '@/lib/categorySlug'
+import { AD_CLIENT, AD_SLOTS } from '@/lib/adConfig'
 
 const POSTS_PER_PAGE = 40
 const LOAD_MORE = 20
@@ -22,13 +23,13 @@ const CATEGORIES = [
   'Fact Check',
 ]
 
-function AdBanner({ slot = '1234567890', className = '' }) {
+function AdBanner({ slot = AD_SLOTS.homepageGrid, className = '' }) {
   return (
     <div className={`flex items-center justify-center bg-gray-50 py-6 ${className}`}>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-8178097336205658"
+        data-ad-client={AD_CLIENT}
         data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"
@@ -104,7 +105,7 @@ export default function Home({ posts }) {
             <div key={slug}>
               {index > 0 && index % 5 === 0 && (
                 <div className="mb-12 break-inside-avoid">
-                  <AdBanner slot={`grid-${index}`} />
+                  <AdBanner />
                 </div>
               )}
               <article className="mb-12 break-inside-avoid">

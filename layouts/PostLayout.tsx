@@ -7,6 +7,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { getArticlePath } from '@/lib/categorySlug'
 import InArticleAd from '@/components/InArticleAd'
+import { AD_CLIENT, AD_SLOTS } from '@/lib/adConfig'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -57,7 +58,7 @@ export default function PostLayout({ content, authorDetails, next, prev, related
         <InArticleAd />
 
         <div className="my-10 flex items-center justify-center bg-gray-50 py-4">
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-8178097336205658" data-ad-slot="article-bottom" data-ad-format="auto" data-full-width-responsive="true" />
+          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client={AD_CLIENT} data-ad-slot={AD_SLOTS.articleBottom} data-ad-format="auto" data-full-width-responsive="true" />
         </div>
 
         {/* Keep Reading — 5 articles from same category */}
