@@ -5,36 +5,27 @@ import { AD_CLIENT, AD_SLOTS } from '@/lib/adConfig'
 
 export default function InArticleAd() {
   const adRef = useRef<HTMLDivElement>(null)
+  const pushed = useRef(false)
 
   useEffect(() => {
-    if (!adRef.current) return
-    // Find the prose container (previous sibling)
-    const prose = adRef.current.previousElementSibling
-    if (!prose) return
-
-    // Find all direct <p> children in the prose div
-    const paragraphs = prose.querySelectorAll(':scope > p')
-    if (paragraphs.length >= 2) {
-      // Insert the ad after the 2nd paragraph
-      const secondP = paragraphs[1]
-      secondP.after(adRef.current)
-      adRef.current.style.display = 'flex'
+    if (!adRef.current || pushed.current) return
+    try {
+      ;((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
+      pushed.current = true
+    } catch {
+      // adsbygoogle not loaded yet — OK
     }
   }, [])
 
   return (
-    <div
-      ref={adRef}
-      className="my-8 items-center justify-center bg-gray-50 py-4"
-      style={{ display: 'none' }}
-    >
+    <div ref={adRef} className="my-8" style={{ textAlign: 'center' }}>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', textAlign: 'center' }}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
         data-ad-client={AD_CLIENT}
-        data-ad-slot={AD_SLOTS.articleTop}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
+        data-ad-slot={AD_SLOTS.articleInline}
       />
     </div>
   )

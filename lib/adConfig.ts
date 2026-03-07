@@ -8,12 +8,12 @@
 export const AD_CLIENT = 'ca-pub-8178097336205658'
 
 export const AD_SLOTS = {
-  /** Appears after 2nd paragraph inside articles (PostLayout) */
-  articleTop: 'REPLACE_WITH_NUMERIC_SLOT_ID',
+  /** In-article fluid ad — appears after 2nd paragraph (PostLayout) */
+  articleInline: '3358922390',
 
   /** Appears at bottom of articles (PostLayout + PostSimple) */
-  articleBottom: 'REPLACE_WITH_NUMERIC_SLOT_ID',
+  articleBottom: '3358922390',
 
   /** Appears in the homepage grid every 5 posts */
-  homepageGrid: 'REPLACE_WITH_NUMERIC_SLOT_ID',
+  homepageGrid: '3358922390',
 } as const
