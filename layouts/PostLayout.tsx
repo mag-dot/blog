@@ -6,8 +6,8 @@ import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { getArticlePath } from '@/lib/categorySlug'
-import InArticleAd from '@/components/InArticleAd'
 import MultiplexAd from '@/components/MultiplexAd'
+import ArticleContentWithAds from '@/components/ArticleContentWithAds'
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -52,12 +52,8 @@ export default function PostLayout({ content, authorDetails, next, prev, related
         </header>
 
         <div className="prose prose-gray prose-headings:font-semibold prose-h2:text-[22px] prose-h2:leading-tight prose-h3:text-[19px] prose-h3:leading-snug prose-h4:text-[17px] prose-h5:text-[15px] sm:prose-h2:text-[27px] sm:prose-h3:text-[21px] max-w-none pb-10 text-[16px] leading-[1.8] text-gray-600 sm:text-[15px]">
-          {children}
+          <ArticleContentWithAds>{children}</ArticleContentWithAds>
         </div>
-
-        <InArticleAd />
-
-        <MultiplexAd />
 
         {/* Keep Reading — 5 articles from same category */}
         {relatedPosts && relatedPosts.length > 0 && (
@@ -87,6 +83,8 @@ export default function PostLayout({ content, authorDetails, next, prev, related
             &larr; All articles
           </Link>
         </div>
+
+        <MultiplexAd />
       </article>
     </SectionContainer>
   )
