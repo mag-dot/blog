@@ -19,4 +19,7 @@ export const AD_SLOTS = {
 
   /** Multiplex ad — after "All articles" link, before footer */
   articleMultiplex: '3702483420',
+
+  /** Sticky anchor ad — fixed to bottom of viewport */
+  stickyAnchor: '3358922390',
 } as const
