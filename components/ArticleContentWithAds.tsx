@@ -9,60 +9,87 @@ import { AD_CLIENT, AD_SLOTS } from '@/lib/adConfig'
  *   - Before the 3rd h2
  *   - Before the last h2
  *
- * Uses DOM injection after hydration — ads are client-side anyway.
+ * Waits for DOM to be ready (h2s present) before injecting.
  */
 export default function ArticleContentWithAds({ children }: { children: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const injectedRef = useRef(false)
 
   useEffect(() => {
-    if (!containerRef.current || injectedRef.current) return
+    if (injectedRef.current) return
 
-    const container = containerRef.current
-    const h2s = container.querySelectorAll('h2')
+    const injectAds = () => {
+      const container = containerRef.current
+      if (!container || injectedRef.current) return false
 
-    if (h2s.length < 2) return
+      const h2s = container.querySelectorAll('h2')
+      if (h2s.length < 2) return false
 
-    injectedRef.current = true
+      injectedRef.current = true
 
-    const createAdUnit = () => {
-      const wrapper = document.createElement('div')
-      wrapper.className = 'my-8'
-      wrapper.style.textAlign = 'center'
+      const createAdUnit = () => {
+        const wrapper = document.createElement('div')
+        wrapper.className = 'my-8'
+        wrapper.style.textAlign = 'center'
 
-      const ins = document.createElement('ins')
-      ins.className = 'adsbygoogle'
-      ins.style.display = 'block'
-      ins.style.textAlign = 'center'
-      ins.setAttribute('data-ad-layout', 'in-article')
-      ins.setAttribute('data-ad-format', 'fluid')
-      ins.setAttribute('data-ad-client', AD_CLIENT)
-      ins.setAttribute('data-ad-slot', AD_SLOTS.articleInline)
+        const ins = document.createElement('ins')
+        ins.className = 'adsbygoogle'
+        ins.style.display = 'block'
+        ins.style.textAlign = 'center'
+        ins.setAttribute('data-ad-layout', 'in-article')
+        ins.setAttribute('data-ad-format', 'fluid')
+        ins.setAttribute('data-ad-client', AD_CLIENT)
+        ins.setAttribute('data-ad-slot', AD_SLOTS.articleInline)
 
-      wrapper.appendChild(ins)
-
-      // Push ad
-      try {
-        ;((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
-      } catch {
-        // adsbygoogle not loaded yet
+        wrapper.appendChild(ins)
+        return wrapper
       }
 
-      return wrapper
+      const pushAd = () => {
+        try {
+          ;((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
+        } catch {
+          // adsbygoogle not loaded yet
+        }
+      }
+
+      // Before 3rd h2 (index 2)
+      if (h2s.length >= 3) {
+        const ad = createAdUnit()
+        h2s[2].parentNode?.insertBefore(ad, h2s[2])
+        pushAd()
+      }
+
+      // Before last h2 — skip if last IS the 3rd (avoid double ad)
+      const lastIndex = h2s.length - 1
+      if (lastIndex !== 2) {
+        const ad = createAdUnit()
+        h2s[lastIndex].parentNode?.insertBefore(ad, h2s[lastIndex])
+        pushAd()
+      }
+
+      return true
     }
 
-    // Before 3rd h2 (index 2)
-    if (h2s.length >= 3) {
-      const ad = createAdUnit()
-      h2s[2].parentNode?.insertBefore(ad, h2s[2])
-    }
+    // Try immediately after paint
+    requestAnimationFrame(() => {
+      if (injectAds()) return
 
-    // Before last h2 — skip if last IS the 3rd (avoid double ad)
-    const lastIndex = h2s.length - 1
-    if (lastIndex !== 2) {
-      const ad = createAdUnit()
-      h2s[lastIndex].parentNode?.insertBefore(ad, h2s[lastIndex])
-    }
+      // If h2s not ready yet (SSR hydration delay), observe for changes
+      const container = containerRef.current
+      if (!container) return
+
+      const observer = new MutationObserver(() => {
+        if (injectAds()) {
+          observer.disconnect()
+        }
+      })
+
+      observer.observe(container, { childList: true, subtree: true })
+
+      // Cleanup after 10s regardless
+      setTimeout(() => observer.disconnect(), 10000)
+    })
   }, [])
 
   return <div ref={containerRef}>{children}</div>
