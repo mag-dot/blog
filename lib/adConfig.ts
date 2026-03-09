@@ -8,7 +8,7 @@
 export const AD_CLIENT = 'ca-pub-8178097336205658'
 
 export const AD_SLOTS = {
-  /** In-article fluid ad — injected before 3rd h2 and before last h2 */
+  /** In-article fluid ad — injected before 2nd h2 and before last h2 */
   articleInline: '3358922390',
 
   /** Appears at bottom of articles, after "All articles" link, before footer */

@@ -38,8 +38,8 @@ export default function StickyAnchorAd() {
           style={{ display: 'block' }}
           data-ad-client={AD_CLIENT}
           data-ad-slot={AD_SLOTS.stickyAnchor}
-          data-ad-format="horizontal"
-          data-full-width-responsive="false"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
         />
       </div>
     </div>
